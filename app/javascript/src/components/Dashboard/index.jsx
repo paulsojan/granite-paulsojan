@@ -7,7 +7,7 @@ import Container from "components/Container";
 import PageLoader from "components/PageLoader";
 import Table from "components/Tasks/Table";
 
-const Dashboard = () => {
+const Dashboard = ({ history }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,13 +24,17 @@ const Dashboard = () => {
     }
   };
 
+  const showTask = slug => {
+    history.push(`/tasks/${slug}/show`);
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
   if (loading) {
     return (
-      <div className="h-screen.w">
+      <div className="h-screen w-screen">
         <PageLoader />
       </div>
     );
@@ -48,7 +52,7 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Table data={tasks} />
+      <Table data={tasks} showTask={showTask} />
     </Container>
   );
 };
