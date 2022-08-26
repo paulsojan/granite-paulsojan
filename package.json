@@ -63,6 +63,8 @@
     "webpack-dev-server": "^3"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint \"app/javascript/src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint --fix \"app/javascript/src/**/*.{js,jsx}\""
   }
 }
