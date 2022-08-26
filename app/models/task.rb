@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   MAX_TITLE_LENGTH = 50
+  before_validation :assign_title, unless: :title_present
   validates :title, presence: true, length: { maximum: MAX_TITLE_LENGTH }
   validates :slug, uniqueness: true
   validate :slug_not_changed
@@ -31,5 +32,9 @@ class Task < ApplicationRecord
       if slug_changed? && self.persisted?
         errors.add(:slug, t("task.slug.immutable"))
       end
+    end
+
+    def title_present
+      self.title.present?
     end
 end
