@@ -4,6 +4,7 @@ class Task < ApplicationRecord
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
   MAX_TITLE_LENGTH = 50
   before_validation :assign_title, unless: :title_present
+  # before_validation :set_title, if: :title_not_present
   validates :title, presence: true, length: { maximum: MAX_TITLE_LENGTH }
   validates :slug, uniqueness: true
   validate :slug_not_changed
@@ -38,4 +39,8 @@ class Task < ApplicationRecord
     def title_present
       self.title.present?
     end
+
+  # def title_not_present
+  #   self.title.blank?
+  # end
 end
