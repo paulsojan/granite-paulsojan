@@ -13,10 +13,8 @@ const Dashboard = ({ history }) => {
 
   const fetchTasks = async () => {
     try {
-      const {
-        data: { tasks },
-      } = await tasksApi.list();
-      setTasks(tasks);
+      const { data } = await tasksApi.list();
+      setTasks(data);
       setLoading(false);
     } catch (error) {
       logger.error(error);
