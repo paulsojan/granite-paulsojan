@@ -3,6 +3,7 @@
 class Task < ApplicationRecord
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
   MAX_TITLE_LENGTH = 50
+  has_many :comments, dependent: :destroy
   before_validation :assign_title, unless: :title_present
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
   # before_validation :set_title, if: :title_not_present
