@@ -16,7 +16,7 @@ const update = ({ slug, payload, quiet = false }) => {
   });
 };
 
-const destroy = ({ slug, quiet }) => {
+const destroy = ({ slug, quiet = false }) => {
   const path = quiet ? `/tasks/${slug}?quiet` : `/tasks/${slug}`;
   return axios.delete(path);
 };
