@@ -8,6 +8,7 @@ class Task < ApplicationRecord
 
   MAX_TITLE_LENGTH = 50
   has_many :comments, dependent: :destroy
+  after_create :log_task_details
   # before_validation :assign_title, unless: :title_present
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
   # before_validation :set_title, if: :title_not_present
@@ -55,6 +56,10 @@ class Task < ApplicationRecord
         unstarred = completed.unstarred.order("updated_at DESC")
       end
       starred + unstarred
+    end
+
+    def log_task_details
+      TaskLoggerJob.perform_later(self)
     end
   # def title_not_present
   #   self.title.blank?
