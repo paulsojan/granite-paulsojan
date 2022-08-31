@@ -2,6 +2,10 @@
 
 class Task < ApplicationRecord
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
+  enum status: { unstarred: "unstarred", starred: "starred" }
+  enum progress: { pending: "pending", completed: "completed" }
+  RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
+
   MAX_TITLE_LENGTH = 50
   has_many :comments, dependent: :destroy
   before_validation :assign_title, unless: :title_present
@@ -42,6 +46,16 @@ class Task < ApplicationRecord
       self.title.present?
     end
 
+    def self.of_status(progress)
+      if progress == :pending
+        starred = pending.starred.order("updated_at DESC")
+        unstarred = pending.unstarred.order("updated_at DESC")
+      else
+        starred = completed.starred.order("updated_at DESC")
+        unstarred = completed.unstarred.order("updated_at DESC")
+      end
+      starred + unstarred
+    end
   # def title_not_present
   #   self.title.blank?
   # end
