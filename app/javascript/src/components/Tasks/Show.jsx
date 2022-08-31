@@ -19,7 +19,7 @@ const Show = () => {
 
   const destroyTask = async () => {
     try {
-      await tasksApi.destroy({ slug: task.slug });
+      await tasksApi.destroy({ slug: task.slug, quiet: true });
       history.push("/");
     } catch (error) {
       logger.error(error);
