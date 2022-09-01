@@ -68,6 +68,10 @@ gem "sidekiq-cron"
 
 gem "letter_opener", group: :development
 
+gem "sqlite3", "~> 1.4", group: [:development, :test]
+
+gem "pg", group: [:production]
+
 group :development, :test do
   # Rails integration for factory_bot, a replacement for fixtures
   gem "factory_bot_rails"
