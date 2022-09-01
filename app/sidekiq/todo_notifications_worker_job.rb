@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class TodoNotificationsWorker
-  include Sidekiq::Worker
+class TodoNotificationsWorkerJob
+  include Sidekiq::Job
 
   def perform
     todo_notification_service = TodoNotificationService.new

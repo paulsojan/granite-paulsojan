@@ -5,6 +5,8 @@ class TasksController < ApplicationController
   after_action :verify_policy_scoped, only: :index
   before_action :load_task!, only: %i[show update destroy]
   before_action :ensure_authorized_update_to_restricted_attrs, only: :update
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   def index
     tasks = policy_scope(Task)

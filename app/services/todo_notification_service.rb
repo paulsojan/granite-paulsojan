@@ -20,7 +20,7 @@ class TodoNotificationService
 
     def notify_users
       users_to_notify.each do |user|
-        UserNotificationsWorker.perform_async(user.id)
+        UserNotificationsWorkerJob.perform_async(user.id)
       end
     end
 

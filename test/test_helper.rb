@@ -25,7 +25,6 @@ class ActiveSupport::TestCase
 
   include ActionView::Helpers::TranslationHelper
   include FactoryBot::Syntax::Methods
-
   parallelize(workers: :number_of_processors) unless ENV["COVERAGE"]
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -40,4 +39,5 @@ class ActiveSupport::TestCase
       "X-Auth-Email" => user.email
     }.merge(options)
   end
+  Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 end
