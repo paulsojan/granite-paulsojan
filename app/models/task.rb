@@ -16,6 +16,8 @@ class Task < ApplicationRecord
   validates :slug, uniqueness: true
   validate :slug_not_changed
 
+  scope :accessible_to, ->(user_id) { where("task_owner_id = ? OR assigned_user_id = ?", user_id, user_id) }
+
   before_create :set_slug
 
   private

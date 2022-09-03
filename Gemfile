@@ -72,6 +72,10 @@ gem "sqlite3", "~> 1.4", group: [:development, :test]
 
 gem "pg", group: [:production]
 
+gem "wicked_pdf"
+
+gem "wkhtmltopdf-binary"
+
 group :development, :test do
   # Rails integration for factory_bot, a replacement for fixtures
   gem "factory_bot_rails"
